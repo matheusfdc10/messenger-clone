@@ -99,10 +99,10 @@ const ConversationList: React.FC<ConversationListProps> = ({
                     fixed
                     inset-y-0
                     pb-20
-                    lg:pb-0
-                    lg:left-20
-                    lg:w-80
-                    lg:block
+                    md:pb-0
+                    md:left-20
+                    md:w-80
+                    md:block
                     overflow-y-auto
                     border-r
                     border-gray-200

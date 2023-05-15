@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
                     <Link
                         href="/conversations"
                         className="
-                            lg:hidden
+                            md:hidden
                             block
                             text-sky-500
                             hover:text-sky-600
