@@ -5,6 +5,8 @@ import { FullMessageType } from "@/types"
 import { useEffect, useRef, useState } from "react"
 import MessageBox from "./MessageBox"
 import axios from "axios"
+import { pusherClient } from "@/libs/pusher"
+import { find } from "lodash"
 
 interface BodyProps {
     initialMessages: FullMessageType[]
@@ -20,6 +22,45 @@ const Body: React.FC<BodyProps> = ({
 
     useEffect(() => {
         axios.post(`/api/conversations/${conversationId}/seen`)
+    }, [conversationId])
+
+    // Real time messages
+    useEffect(() => {
+        pusherClient.subscribe(conversationId);
+        bottomRef?.current?.scrollIntoView();
+
+        const messageHndler = (message: FullMessageType) => {
+            axios.post(`/api/conversations/${conversationId}/seen`);
+
+            setMessages((current) => {
+                if(find(current, { id: message.id })) {
+                    return current
+                }
+
+                return [...current, message]
+            });
+
+            bottomRef?.current?.scrollIntoView();
+        }
+
+        const updateMessageHnadler = (newMessage: FullMessageType) => {
+            setMessages((current) => current.map((currentMessage) => {
+                if (currentMessage.id === newMessage.id) {
+                    return newMessage
+                } 
+
+                return currentMessage;
+            }))
+        }
+
+        pusherClient.bind('messages:new', messageHndler);
+        pusherClient.bind('message:update', updateMessageHnadler)
+
+        return () => {
+            pusherClient.unsubscribe(conversationId);
+            pusherClient.unbind('messages:new', messageHndler);
+            pusherClient.unbind('message:update', updateMessageHnadler)
+        }
     }, [conversationId])
 
     return (

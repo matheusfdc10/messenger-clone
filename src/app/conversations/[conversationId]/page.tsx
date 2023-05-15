@@ -3,7 +3,7 @@ import getMessages from "@/actions/getMessages";
 import Body from "@/components/conversations/Body";
 import Form from "@/components/conversations/Form";
 import Header from "@/components/conversations/Header";
-import EmptyState from "@/components/inputs/EmptyState";
+import EmptyState from "@/components/EmptyState";
 
 interface IParams {
     conversationId: string;
