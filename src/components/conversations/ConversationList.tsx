@@ -42,12 +42,12 @@ const ConversationList: React.FC<ConversationListProps> = ({
         pusherClient.subscribe(pusherKey);
 
         const newHandler = (conversation: FullConversationType) => {
-            setItems((curret) => {
-                if(find(curret, { id: conversation.id})) {
-                    return curret;
+            setItems((current) => {
+                if(find(current, { id: conversation.id})) {
+                    return current;
                 }
 
-                return [conversation, ...curret]
+                return [conversation, ...current]
             })
         }
 
