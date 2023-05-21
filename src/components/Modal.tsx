@@ -8,12 +8,14 @@ interface ModalProps {
     isOpen?: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    image?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
-    children
+    children,
+    image
 }) => {
     return (
         <Transition.Root
@@ -66,24 +68,22 @@ const Modal: React.FC<ModalProps> = ({
                             leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
                         >
                             <Dialog.Panel
-                                className="
+                                className={`
                                     relative 
                                     transform 
                                     overflow-hidden 
                                     rounded-lg 
                                     bg-white 
-                                    px-4 
-                                    pb-4
-                                    pt-5 
                                     text-left 
                                     shadow-xl 
                                     transition-all
                                     w-full
                                     sm:my-8 
                                     sm:w-full 
-                                    sm:max-w-lg 
-                                    sm:p-6
-                                "
+                                    sm:max-w-lg
+                                    
+                                    ${!image && 'sm:p-6 px-4 pb-4 pt-5'}
+                                `}
                             >
                                 <div 
                                 className="

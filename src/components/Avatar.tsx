@@ -3,6 +3,7 @@
 import { User } from '@prisma/client'
 import Image from 'next/image'
 import placeholder from '../../public/images/placeholder.jpg'
+import useActiveList from '@/hooks/useActiveList';
 
 interface AvatarProps {
     user?: User;
@@ -13,6 +14,8 @@ const Avatar: React.FC<AvatarProps> = ({
     user,
     onClick
 }) => {
+    const { members } = useActiveList();
+    const isActive = members.indexOf(user?.email!) !== -1;
 
     return (
         <div className={`relative ${onClick && 'cursor-pointer'}`}
@@ -37,22 +40,24 @@ const Avatar: React.FC<AvatarProps> = ({
                     sizes='100%'
                 />
             </div>
-            <span 
-                className='
-                    absolute
-                    block
-                    rounded-full
-                    bg-green-500
-                    ring-2
-                    ring-white
-                    top-0
-                    right-0
-                    h-2
-                    w-2
-                    md:h-3
-                    md:w-3
-                '
-            />
+            {isActive && (
+                <span 
+                    className='
+                        absolute
+                        block
+                        rounded-full
+                        bg-green-500
+                        ring-2
+                        ring-white
+                        top-0
+                        right-0
+                        h-2
+                        w-2
+                        md:h-3
+                        md:w-3
+                    '
+                />
+            )}
         </div>
     )
 }

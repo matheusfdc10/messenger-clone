@@ -70,9 +70,11 @@ const ConversationList: React.FC<ConversationListProps> = ({
             })
 
             //testando
-            router.push('/conversations')
             if (conversationId === conversation.id) {
+                router.push('/conversations')
             }
+
+            router.refresh()
         }
 
         pusherClient.bind('conversation:new', newHandler)

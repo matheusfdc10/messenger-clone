@@ -8,6 +8,7 @@ import Avatar from "../Avatar";
 import ProfileDrawer from "./ProfileDrawer";
 import AvatarGroup from "../AvatarGroup";
 import ImageModal from "./ImageModalOpen";
+import useActiveList from "@/hooks/useActiveList";
 
  
 
@@ -23,14 +24,16 @@ const Header: React.FC<HeaderProps> = ({
     const otherUser = useOtherUser(conversation);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [imageModalOpen, setImageModalOpen] = useState(false);
+    const { members } = useActiveList();
+    const isActive = members.indexOf(otherUser?.email!) !== -1;
 
     const statusText = useMemo(() => {
         if (conversation.isGroup) {
             return `${conversation.users.length} members`;
         }
 
-        return 'Active'
-    }, [conversation])
+        return isActive ? 'Active' : 'Offline'
+    }, [conversation, isActive])
 
     return (
         <>
