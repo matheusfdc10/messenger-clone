@@ -90,7 +90,6 @@ const Modal: React.FC<ModalProps> = ({
                                     absolute 
                                     right-0 
                                     top-0 
-                                    hidden 
                                     pr-4 
                                     pt-4 
                                     sm:block

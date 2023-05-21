@@ -5,15 +5,19 @@ import Image from 'next/image'
 import placeholder from '../../public/images/placeholder.jpg'
 
 interface AvatarProps {
-    user?: User
+    user?: User;
+    onClick?: () => void;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
-    user
+    user,
+    onClick
 }) => {
 
     return (
-        <div className='relative'>
+        <div className={`relative ${onClick && 'cursor-pointer'}`}
+            onClick={onClick}
+        >
             <div
                 className='
                     relative

@@ -12,6 +12,7 @@ import Image from "next/image";
 import placeholder from '../../../public/images/placeholder.jpg'
 import { CldUploadButton } from 'next-cloudinary'
 import Button from "../Button";
+import ImageModal from "../conversations/ImageModalOpen";
 
 interface SettingsModalProps {
     isOpen?: boolean;
@@ -26,6 +27,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [imageModalOpen, setImageModalOpen] = useState(false);
 
     const {
         register,
@@ -113,15 +115,24 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                     items-center
                                     gap-x-3
                                 ">
-                                    <Image
-                                        width={48}
-                                        height={48}
-                                        className="rounded-full"
-                                        src={image || currentUser?.image || placeholder}
-                                        alt="Avatar"
-                                    />
+                                    <div className="relative inline-block rounded-full overflow-hidden h-9 w-9 md:h-11 md:w-11">
+                                        <Image
+                                            fill
+                                            // width='48'
+                                            // height='48'
+                                            className="rounded-full cursor-pointer"
+                                            src={image || currentUser?.image || placeholder}
+                                            alt="Avatar"
+                                            onClick={() => setImageModalOpen(true)}
+                                        />
+                                        <ImageModal
+                                            src={image || currentUser?.image || placeholder}
+                                            isOpen={imageModalOpen}
+                                            onClose={() => setImageModalOpen(false)}
+                                        />
+                                    </div>
                                     <CldUploadButton
-                                        options={{ maxFiles: 1 }}
+                                        options={{ maxFiles: 1, resourceType: "image" }}
                                         onUpload={handleUpload}
                                         uploadPreset="yszrqnsb"
                                     >

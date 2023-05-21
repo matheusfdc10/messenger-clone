@@ -7,9 +7,9 @@ import { format } from "date-fns";
 import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from 'react-icons/io5'
 import Avatar from "../Avatar";
-import Modal from "../Modal";
 import ConfirmModal from "./ConfirmModal";
 import AvatarGroup from "../AvatarGroup";
+import ImageModal from "./ImageModalOpen";
 
 interface ProfileDrawerProps {
     isOpen: boolean;
@@ -26,6 +26,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 }) => {
     const otherUser = useOtherUser(data);
     const [confirmOpen, setConfirmOpen] = useState(false)
+    const [imageModalOpen, setImageModalOpen] = useState(false);
 
     const joinedDate = useMemo(() => {
         return format(new Date(otherUser.createdAt), 'PP')
@@ -101,7 +102,14 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     {data.isGroup ? (
                                         <AvatarGroup users={data.users}/>
                                     ) : (
-                                        <Avatar user={otherUser}/>
+                                        <>
+                                            <Avatar user={otherUser} onClick={() => setImageModalOpen(true)}/>
+                                            <ImageModal
+                                                src={otherUser?.image}
+                                                isOpen={imageModalOpen}
+                                                onClose={() => setImageModalOpen(false)}
+                                            />
+                                        </>
                                     )}
                                 </div>
                                 <div>

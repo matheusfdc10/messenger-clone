@@ -7,6 +7,7 @@ import { HiChevronLeft, HiEllipsisHorizontal } from "react-icons/hi2";
 import Avatar from "../Avatar";
 import ProfileDrawer from "./ProfileDrawer";
 import AvatarGroup from "../AvatarGroup";
+import ImageModal from "./ImageModalOpen";
 
  
 
@@ -21,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const otherUser = useOtherUser(conversation);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [imageModalOpen, setImageModalOpen] = useState(false);
 
     const statusText = useMemo(() => {
         if (conversation.isGroup) {
@@ -69,7 +71,14 @@ const Header: React.FC<HeaderProps> = ({
                     {conversation.isGroup ? (
                         <AvatarGroup users={conversation.users}/>
                     ) : (
-                        <Avatar user={otherUser}/>
+                        <>
+                            <Avatar user={otherUser} onClick={() => setImageModalOpen(true)}/>
+                            <ImageModal
+                                src={otherUser?.image}
+                                isOpen={imageModalOpen}
+                                onClose={() => setImageModalOpen(false)}
+                            />
+                        </>
                     )}
                     <div className="flex flex-col">
                         <div>

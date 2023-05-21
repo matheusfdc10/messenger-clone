@@ -30,12 +30,10 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         .then(() => {
             onClose();
             router.push('/conversations');
+            router.refresh();
         })
         .catch(() => toast.error('Something went wrong!'))
-        .finally(() => {
-            router.refresh();
-            setIsLoading(false)
-        })
+        .finally(() => setIsLoading(false))
     }, [conversationId, router, onClose])
 
     return (
@@ -95,8 +93,8 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                 className="
                     mt-5
                     sm:mt-4
-                    sm:flex
-                    sm:flex-row-reverse
+                    flex
+                    flex-row-reverse
                 "
             >
                 <Button

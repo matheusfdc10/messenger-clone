@@ -20,6 +20,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 }) => {
     const session = useSession();
     const [imageModalOpen, setImageModalOpen] = useState(false);
+    const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
     const isOwn = session?.data?.user?.email === data?.sender?.email;
     const seenList = (data.seen || [])
@@ -48,7 +49,12 @@ const MessageBox: React.FC<MessageBoxProps> = ({
     return (
         <div className={container}>
             <div className={avatar}>
-                <Avatar user={data.sender} />
+                <Avatar user={data.sender} onClick={() => setAvatarModalOpen(true)}/>
+                <ImageModal
+                    src={data.sender.image}
+                    isOpen={avatarModalOpen}
+                    onClose={() => setAvatarModalOpen(false)}
+                />
             </div>
             <div className={body}>
                 <div className="flex items-center gap-1">
