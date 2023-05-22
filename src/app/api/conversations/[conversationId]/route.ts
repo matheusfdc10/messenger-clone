@@ -47,9 +47,7 @@ export async function DELETE(
             }
         });
 
-        setTimeout(() => {
-            return NextResponse.json(deletedConversation)
-        }, 2000)
+        return NextResponse.json(deletedConversation)
     } catch(error: any) {
         console.log(error, 'ERROR_CONVERSATION_DELETE')
         return NextResponse.json(null);
