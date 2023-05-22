@@ -76,6 +76,8 @@ const AuthForm = () => {
     }
 
     const solcialAction = (action: string) => {
+        toast.error(`Login with ${action} unavailable`)
+        return
         setIsLoading(true)
 
         signIn(action, { redirect: false})
