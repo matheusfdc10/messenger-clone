@@ -72,8 +72,10 @@ const ConversationList: React.FC<ConversationListProps> = ({
             //testando
             if (conversationId === conversation.id) {
                 router.push('/conversations');
-                router.refresh();
+                // router.refresh();
             }
+
+            window.location.reload();
 
         }
 
