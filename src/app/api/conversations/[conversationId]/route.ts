@@ -34,12 +34,12 @@ export async function DELETE(
 
         const deletedConversation = await prisma.conversation.deleteMany({
             where: {
-                id: conversationId,
-                userIds: {
-                    hasSome: [currentUser.id]
-                }
-            }
-        })
+              id: conversationId,
+              userIds: {
+                hasSome: [currentUser.id]
+              },
+            },
+        });   
 
         existingConversation.users.forEach((user) => {
             if (user.email) {
@@ -50,6 +50,6 @@ export async function DELETE(
         return NextResponse.json(deletedConversation)
     } catch(error: any) {
         console.log(error, 'ERROR_CONVERSATION_DELETE')
-        return new NextResponse('Internal Error', { status: 500 })
+        return NextResponse.json(null);
     }
 }
