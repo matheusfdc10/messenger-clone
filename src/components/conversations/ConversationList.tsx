@@ -30,8 +30,8 @@ const ConversationList: React.FC<ConversationListProps> = ({
     const {conversationId, isOpen} = useConversation()
 
     const pusherKey = useMemo(() => {
-        return session.data?.user?.email
-    }, [session.data?.user?.email])
+        return session?.data?.user?.email
+    }, [session?.data?.user?.email])
 
 
     useEffect(() => {
@@ -72,9 +72,8 @@ const ConversationList: React.FC<ConversationListProps> = ({
             //testando
             if (conversationId === conversation.id) {
                 router.push('/conversations');
+                router.refresh();
             }
-
-            router.refresh();
         }
 
         pusherClient.bind('conversation:new', newHandler)
