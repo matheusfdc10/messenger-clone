@@ -72,8 +72,10 @@ const ConversationList: React.FC<ConversationListProps> = ({
             //testando
             if (conversationId === conversation.id) {
                 router.push('/conversations');
-                // router.refresh();
+            } else {
+                router.refresh();
             }
+
         }
 
         pusherClient.bind('conversation:new', newHandler)
