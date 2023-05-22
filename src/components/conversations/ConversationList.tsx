@@ -74,9 +74,6 @@ const ConversationList: React.FC<ConversationListProps> = ({
                 router.push('/conversations');
                 // router.refresh();
             }
-
-            window.location.reload();
-
         }
 
         pusherClient.bind('conversation:new', newHandler)
